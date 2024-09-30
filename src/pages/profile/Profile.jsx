@@ -16,7 +16,7 @@ export default function Profile({ children }) {
           <div className="flex flex-col gap-4">
           <div className="flex justify-between flex-col items-start md:flex-row md:items-center">
               <h1 className="font-bold text-xl">
-                Institutional preparedness for NEP
+               Profile of the Institution
               </h1>
               <StatusBadges />
             </div>
