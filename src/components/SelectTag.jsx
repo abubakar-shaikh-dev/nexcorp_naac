@@ -3,12 +3,16 @@ import React from "react";
 export default function SelectTag(props) {
   return (
     <div className="sm:col-span-6">
-      <label
+      {props.label && (
+        <label
         htmlFor={props.name}
         className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
       >
         {props.label}
       </label>
+      )}
+      
+
       <div className="mt-1 sm:col-span-2 ">
         <select
           id={props.name}

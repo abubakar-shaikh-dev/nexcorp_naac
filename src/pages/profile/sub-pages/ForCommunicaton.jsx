@@ -4,6 +4,7 @@ import {
   ExclamationTriangleIcon,
   XMarkIcon,
   TrashIcon,
+  CheckIcon,
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
 import { ArrowRightIcon, PlusIcon } from "@heroicons/react/24/outline";
@@ -36,10 +37,40 @@ const tableData = [
 
 export default function ForCommunicaton() {
   const [open, setOpen] = useState(false);
+  const [newData, setNewData] = useState({
+    designation: "",
+    name: "",
+    telephone_o: "",
+    telephone_r: "",
+    mobile: "",
+    fax: "",
+    email: "",
+  });
+  const [editId, setEditId] = useState(null);
+  const [editData, setEditData] = useState({
+    designation: "",
+    name: "",
+    telephone_o: "",
+    telephone_r: "",
+    mobile: "",
+    fax: "",
+    email: "",
+  });
+
+  function handleChange(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+    setNewData((prevValue) => {
+      return {
+        ...prevValue,
+        [name]: value,
+      };
+    });
+  }
   return (
     <>
       {/* ADD MODAL START  */}
-      <Transition.Root show={open} as={Fragment}>
+      {/* <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={setOpen}>
           <Transition.Child
             as={Fragment}
@@ -133,7 +164,7 @@ export default function ForCommunicaton() {
             </div>
           </div>
         </Dialog>
-      </Transition.Root>
+      </Transition.Root> */}
       {/* ADD MODAL END  */}
 
       <div className="flex justify-between items-end w-full">
@@ -148,7 +179,7 @@ export default function ForCommunicaton() {
         </div>
       </div>
 
-      <div className="flex justify-end">
+      {/* <div className="flex justify-end">
         <button
           className="flex justify-center h-9 text-sm items-center bg-gray-800 hover:bg-gray-900 hover:shadow-lg focus:bg-black text-white px-6 py-2 rounded-md transition-all duration-150"
           onClick={() => setOpen(true)}
@@ -156,7 +187,7 @@ export default function ForCommunicaton() {
           <span>Add New Rows</span>
           <PlusIcon className="h-4 w-4 ml-2" />
         </button>
-      </div>
+      </div> */}
 
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="mt-0 flex flex-col">
@@ -221,11 +252,32 @@ export default function ForCommunicaton() {
                     {tableData.map((data) => (
                       <tr key={data.id} className="divide-x divide-gray-200">
                         <td className="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
-                          {data.designation}
+                          
+                          {data.id === editId ? (
+                            <>
+                          <SelectTag
+                            name="designation"
+                            default={data.designation}
+                            data={[
+                              { id: 0, value: "Principle" },
+                              { id: 1, value: "Vice Principle" },
+                              { id: 2, value: "IQAC Co-Ordinator" },
+                            ]}
+                            />
+                            </>
+                          ) : data.designation}
+
                         </td>
 
                         <td className="whitespace-nowrap p-4 text-sm text-gray-500">
-                          {data.name}
+                          {data.id === editId ? (
+                            <>
+                          <InputTag
+                            name="name"
+                            value={data.name}
+                            />
+                            </>
+                          ) : data.name}
                         </td>
                         <td className="whitespace-nowrap p-4 text-sm text-gray-500">
                           {data.telephone_o}
@@ -244,16 +296,111 @@ export default function ForCommunicaton() {
                         </td>
                         <td className="flex gap-7 whitespace-nowrap py-4 pl-4 pr-4 text-sm text-gray-500 sm:pr-6">
                           <TrashIcon className="h-5 w-5  text-red-600 hover:text-red-900 cursor-pointer" />
-                          <PencilSquareIcon className="h-5 w-5 text-indigo-600 hover:text-indigo-900 cursor-pointer" />
+                          <PencilSquareIcon className="h-5 w-5 text-indigo-600 hover:text-indigo-900 cursor-pointer" 
+                            onClick={()=>setEditId(data.id)}
+                          />
                         </td>
                       </tr>
                     ))}
+                    {open && (
+                      <>
+                        <tr className="divide-x divide-gray-200">
+                          <td className="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-6">
+                            <SelectTag
+                              name="designation"
+                              data={[
+                                { id: 0, value: "Principle" },
+                                { id: 1, value: "Vice Principle" },
+                                { id: 2, value: "IQAC Co-Ordinator" },
+                              ]}
+                              onChange={handleChange}
+                            />
+                          </td>
+
+                          <td className="whitespace-nowrap p-4 text-sm text-gray-500">
+                            <InputTag
+                              type="text"
+                              name="name"
+                              onChange={handleChange}
+                            />
+                          </td>
+                          <td className="whitespace-nowrap p-4 text-sm text-gray-500">
+                            <InputTag
+                              type="tel"
+                              name="telephone_o"
+                              onChange={handleChange}
+                            />
+                          </td>
+                          <td className="whitespace-nowrap p-4 text-sm text-gray-500">
+                            <InputTag
+                              type="tel"
+                              name="telephone_r"
+                              onChange={handleChange}
+                            />
+                          </td>
+                          <td className="whitespace-nowrap p-4 text-sm text-gray-500">
+                            <InputTag
+                              type="tel"
+                              name="mobile"
+                              onChange={handleChange}
+                            />
+                          </td>
+                          <td className="whitespace-nowrap p-4 text-sm text-gray-500">
+                            <InputTag
+                              type="text"
+                              name="fax"
+                              onChange={handleChange}
+                            />
+                          </td>
+                          <td className="whitespace-nowrap p-4 text-sm text-gray-500">
+                            <InputTag
+                              type="email"
+                              name="email"
+                              onChange={handleChange}
+                            />
+                          </td>
+                          <td className="flex h-full justify-center items-center gap-7 whitespace-nowrap p-6 text-sm text-gray-500 sm:pr-6">
+                            <XMarkIcon
+                              className="h-5 w-5  text-red-600 hover:text-red-900 border-red-600 hover:border-2 rounded-md cursor-pointer"
+                              onClick={() => {
+                                setOpen(false);
+                                setNewData({
+                                  designation: "",
+                                  name: "",
+                                  telephone_o: "",
+                                  telephone_r: "",
+                                  mobile: "",
+                                  fax: "",
+                                  email: "",
+                                });
+                              }}
+                            />
+                            <CheckIcon
+                              className="h-5 w-5 text-green-600 hover:text-green-900 border-green-600 hover:border-2 rounded-md cursor-pointer"
+                              onClick={() => {
+                                console.log(newData);
+                              }}
+                            />
+                          </td>
+                        </tr>
+                      </>
+                    )}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="flex justify-end">
+        <button
+          className="flex justify-center h-9 text-sm items-center bg-gray-800 hover:bg-gray-900 hover:shadow-lg focus:bg-black text-white px-6 py-2 rounded-md transition-all duration-150"
+          onClick={() => setOpen(true)}
+        >
+          <span>Add New Rows</span>
+          <PlusIcon className="h-4 w-4 ml-2" />
+        </button>
       </div>
 
       <div className="flex gap-3 my-5">

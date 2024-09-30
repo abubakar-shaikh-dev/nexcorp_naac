@@ -14,6 +14,7 @@ export default function InputTag(props) {
               type={props.type}
               name={props.name}
               id={props.name}
+              defaultValue={props.value}
               placeholder={props.placeholder}
               className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               {...props}

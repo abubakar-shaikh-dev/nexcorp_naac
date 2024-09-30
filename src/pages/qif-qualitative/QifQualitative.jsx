@@ -16,7 +16,7 @@ export default function QifQualitative() {
         <div className="flex flex-col gap-4">
           <div className="flex justify-between flex-col mb-3 items-start md:flex-row md:items-center">
             <h1 className="font-bold text-xl">
-              QIF Qualitative Metric for Trial - Dgm Ayurvedic Medical College
+              QIF Qualitative Metric for Trial - NEXENSTIAL AYURVEDIC COLLEGE
             </h1>
             <StatusBadges />
           </div>
